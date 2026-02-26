@@ -50,17 +50,21 @@ export const env = {
         refreshExpiresIn: process.env.JWT_REFRESH_EXPIRES_IN || '7d',
     },
 
-    // Google OAuth
+    // Google OAuth — callbackUrl derives from API_URL so only one var needs changing
     google: {
         clientId: process.env.GOOGLE_CLIENT_ID || '',
         clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
-        callbackUrl: process.env.GOOGLE_CALLBACK_URL || 'http://localhost:5000/api/auth/google/callback',
+        callbackUrl:
+            process.env.GOOGLE_CALLBACK_URL ||
+            `${process.env.API_URL || 'http://localhost:5000'}/api/auth/google/callback`,
     },
 
     // Etsy
     etsy: {
         apiKey: process.env.ETSY_API_KEY || '',
-        redirectUri: process.env.ETSY_REDIRECT_URI || 'http://localhost:5000/api/etsy/callback',
+        redirectUri:
+            process.env.ETSY_REDIRECT_URI ||
+            `${process.env.API_URL || 'http://localhost:5000'}/api/etsy/callback`,
         scopes: process.env.ETSY_SCOPES || 'shops_r listings_r listings_w transactions_r transactions_w billing_r profile_r email_r',
     },
 
