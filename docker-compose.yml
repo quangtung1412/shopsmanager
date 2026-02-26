@@ -61,30 +61,16 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        # Baked into the static build at image-build time
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:5000}
+        VITE_CONTACT_EMAIL: ${VITE_CONTACT_EMAIL:-admin@etsyerp.local}
     container_name: etsy-erp-frontend
     restart: unless-stopped
     ports:
       - '3000:3000'
-    environment:
-      - VITE_API_URL=${API_URL:-http://localhost:5000}
     depends_on:
       - backend
-    volumes:
-      - ./frontend/src:/app/src
-
-  nginx:
-    image: nginx:alpine
-    container_name: etsy-erp-nginx
-    restart: unless-stopped
-    ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./nginx/ssl:/etc/nginx/ssl:ro
-    depends_on:
-      - backend
-      - frontend
 
 volumes:
   mysql-data:
