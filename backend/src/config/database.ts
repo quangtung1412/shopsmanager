@@ -9,7 +9,7 @@ export const AppDataSource = new DataSource({
     username: env.mysql.user,
     password: env.mysql.password,
     database: env.mysql.database,
-    synchronize: env.nodeEnv === 'development',
+    synchronize: true,
     logging: env.nodeEnv === 'development' ? ['error', 'warn'] : ['error'],
     entities: [path.join(__dirname, '..', 'entities', '*.{ts,js}')],
     migrations: [path.join(__dirname, '..', 'migrations', '*.{ts,js}')],
